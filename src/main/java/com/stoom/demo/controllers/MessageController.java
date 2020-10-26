@@ -3,6 +3,7 @@ package com.stoom.demo.controllers;
 import com.stoom.demo.entities.Message;
 import com.stoom.demo.requests.MessageRequest;
 import com.stoom.demo.services.MessageService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/message")
 @Validated
+@Api(value = "MessageController")
 public class MessageController {
     private MessageService messageService;
 

@@ -3,6 +3,7 @@ package com.stoom.demo.controllers;
 import com.stoom.demo.entities.Game;
 import com.stoom.demo.requests.GameUserRequest;
 import com.stoom.demo.services.GameUserService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/game_user")
 @Validated
+@Api(value = "GameUserController")
 public class GameUserController {
     private GameUserService gameUserService;
 

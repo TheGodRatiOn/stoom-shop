@@ -4,6 +4,7 @@ package com.stoom.demo.controllers;
 import com.stoom.demo.requests.GameRequest;
 import com.stoom.demo.entities.Game;
 import com.stoom.demo.services.GameService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/game")
 @Validated
+@Api(value = "GameController")
 public class GameController {
     private final GameService gameService;
 
