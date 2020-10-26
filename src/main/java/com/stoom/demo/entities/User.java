@@ -13,13 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
     @Id
-    @Column(name = "primary_key", nullable = false)
+    @Column(name = "id", nullable = false)
     private String userID;
 
     @OneToMany(mappedBy = "reviewUser")
     private List<Review> userReviews;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "name", nullable = false)
     private String userName;
 
     @Column(name = "role", nullable = false)

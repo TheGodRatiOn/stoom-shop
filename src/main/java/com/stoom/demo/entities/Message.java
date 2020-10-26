@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Message {
     @Id
-    @Column(name = "primary_key", nullable = false)
+    @Column(name = "id", nullable = false)
     private String messageID;
 
     @ManyToOne
@@ -23,9 +23,9 @@ public class Message {
     @Column(name = "user_reciever_fk", nullable = false)
     private String messageReceiverUser;
 
-    @Column(name = "text")
+    @Column(name = "text_m")
     private String messageText;
 
-    @Column(name = "date_time")
+    @Column(name = "time_date")
     private LocalDateTime messageDate;
 }

@@ -12,13 +12,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Review {
     @Id
-    @Column(name = "primary_key", nullable = false)
+    @Column(name = "id", nullable = false)
     private String reviewPK;
 
-    @Column(name = "text")
+    @Column(name = "text_review")
     private String reviewText;
 
-    @Column(name = "assessment", nullable = false)
+    @Column(name = "asessment", nullable = false)
     private float reviewAssessment;
 
     @ManyToOne

@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "game")
 public class Game {
     @Id
-    @Column(name = "primary_key", nullable = false)
+    @Column(name = "id", nullable = false)
     private String gameID;
 
     @Column(name = "name", nullable = false)
