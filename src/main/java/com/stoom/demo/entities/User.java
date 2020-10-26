@@ -25,6 +25,6 @@ public class User {
     @Column(name = "role", nullable = false)
     private String userRole;
 
-    @OneToMany(mappedBy = "messageUser")
+    @OneToMany(mappedBy = "messageSenderUser")
     private List<Message> userMessages;
 }
