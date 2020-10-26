@@ -3,11 +3,13 @@ package com.stoom.demo.services;
 import com.stoom.demo.requests.UserRequest;
 import com.stoom.demo.entities.User;
 import com.stoom.demo.repositories.UserRepository;
+import com.stoom.demo.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,9 +18,15 @@ import java.util.UUID;
 public class UserService {
     private UserRepository userRepository;
 
-    public ResponseEntity<List<User>> getUsersByUserName(String userName){
+    public ResponseEntity<List<UserResponse>> getUsersByUserName(String userName){
         if (!userRepository.findAllByUserNameContaining(userName).isEmpty()){
-            return new ResponseEntity<>(userRepository.findAllByUserNameContaining(userName), HttpStatus.ACCEPTED);
+            List<User> users = userRepository.findAllByUserNameContaining(userName);
+            List<UserResponse> userResponses = new ArrayList<>();
+
+            for (User user : users) {
+                userResponses.add(new UserResponse(user));
+            }
+            return new ResponseEntity<>(userResponses, HttpStatus.ACCEPTED);
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

@@ -1,7 +1,7 @@
 package com.stoom.demo.controllers;
 
-import com.stoom.demo.entities.Game;
 import com.stoom.demo.requests.GameUserRequest;
+import com.stoom.demo.responses.GameResponse;
 import com.stoom.demo.services.GameUserService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class GameUserController {
     }
 
     @GetMapping("/{userID}")
-    public ResponseEntity<List<Game>> getUserGames(@Valid @PathVariable(name = "userID") String userID){
+    public ResponseEntity<List<GameResponse>> getUserGames(@Valid @PathVariable(name = "userID") String userID){
         return gameUserService.getUserGames(userID);
     }
 }

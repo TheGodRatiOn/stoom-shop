@@ -4,12 +4,14 @@ import com.stoom.demo.entities.Message;
 import com.stoom.demo.repositories.MessageRepository;
 import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.requests.MessageRequest;
+import com.stoom.demo.responses.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,12 +36,16 @@ public class MessageService {
         }
     }
 
-    public ResponseEntity<List<Message>> getAllUserMessages(String userID, String role){
+    public ResponseEntity<List<MessageResponse>> getAllUserMessages(String userID, String role){
         if (userRepository.existsById(userID) && userRepository.findById(userID).get().getUserRole().equals(role)){
             List<Message> messages = messageRepository.findAllByMessageSenderUser(userRepository.findById(userID).get());
             messages.addAll(messageRepository.findAllByMessageReceiverUser(userID));
 
-            return new ResponseEntity<>(messages, HttpStatus.ACCEPTED);
+            List<MessageResponse> messageResponses = new ArrayList<>();
+            for (Message message : messages) {
+                messageResponses.add(new MessageResponse(message));
+            }
+            return new ResponseEntity<>(messageResponses, HttpStatus.ACCEPTED);
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

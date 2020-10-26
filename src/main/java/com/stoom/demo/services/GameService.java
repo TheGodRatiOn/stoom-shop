@@ -4,11 +4,13 @@ import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.requests.GameRequest;
 import com.stoom.demo.entities.Game;
 import com.stoom.demo.repositories.GameRepository;
+import com.stoom.demo.responses.GameResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,9 +21,15 @@ public class GameService {
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
 
-    public ResponseEntity<List<Game>> getGameByTitle(String gameTitle){
+    public ResponseEntity<List<GameResponse>> getGameByTitle(String gameTitle){
         if (!gameRepository.findAllByGameTitleContaining(gameTitle).isEmpty()) {
-            return new ResponseEntity<>(gameRepository.findAllByGameTitleContaining(gameTitle), HttpStatus.ACCEPTED);
+            List<Game> games = gameRepository.findAllByGameTitleContaining(gameTitle);
+            List<GameResponse> gameResponses = new ArrayList<>();
+
+            for (Game game : games) {
+                gameResponses.add(new GameResponse(game));
+            }
+            return new ResponseEntity<>(gameResponses, HttpStatus.ACCEPTED);
         }else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

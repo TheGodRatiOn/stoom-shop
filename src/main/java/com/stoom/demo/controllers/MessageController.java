@@ -1,7 +1,7 @@
 package com.stoom.demo.controllers;
 
-import com.stoom.demo.entities.Message;
 import com.stoom.demo.requests.MessageRequest;
+import com.stoom.demo.responses.MessageResponse;
 import com.stoom.demo.services.MessageService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,8 @@ public class MessageController {
     }
 
     @GetMapping("/{userID}/{role}")
-    public ResponseEntity<List<Message>> getAllEmployeeMessages(@Valid @PathVariable(name = "userID") String userID,
-                                                                @Valid @PathVariable(name = "roleID") String role){
+    public ResponseEntity<List<MessageResponse>> getAllEmployeeMessages(@Valid @PathVariable(name = "userID") String userID,
+                                                                        @Valid @PathVariable(name = "roleID") String role){
         return messageService.getAllUserMessages(userID, role);
     }
 }

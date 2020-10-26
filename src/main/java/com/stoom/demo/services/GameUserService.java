@@ -6,6 +6,7 @@ import com.stoom.demo.repositories.GameRepository;
 import com.stoom.demo.repositories.GameUserRepository;
 import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.requests.GameUserRequest;
+import com.stoom.demo.responses.GameResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class GameUserService {
         }
     }
 
-    public ResponseEntity<List<Game>> getUserGames(String userID){
+    public ResponseEntity<List<GameResponse>> getUserGames(String userID){
         if (userRepository.existsById(userID) && !gameUserRepository.findAllByGuUserID(userID).isEmpty()) {
             List<GameUser> gameUsers = gameUserRepository.findAllByGuUserID(userID);
             List<Game> games = new ArrayList<>();
@@ -41,7 +42,11 @@ public class GameUserService {
                 }
             }
 
-            return new ResponseEntity<>(games, HttpStatus.OK);
+            List<GameResponse> gameResponses = new ArrayList<>();
+            for (Game game : games) {
+                gameResponses.add(new GameResponse(game));
+            }
+            return new ResponseEntity<>(gameResponses, HttpStatus.OK);
 
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -1,7 +1,7 @@
 package com.stoom.demo.controllers;
 
 import com.stoom.demo.requests.UserRequest;
-import com.stoom.demo.entities.User;
+import com.stoom.demo.responses.UserResponse;
 import com.stoom.demo.services.UserService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{userName}")
-    public ResponseEntity<List<User>> getUsersByUserName(@Valid @PathVariable(name = "userName") String userName){
+    public ResponseEntity<List<UserResponse>> getUsersByUserName(@Valid @PathVariable(name = "userName") String userName){
         return userService.getUsersByUserName(userName);
     }
 

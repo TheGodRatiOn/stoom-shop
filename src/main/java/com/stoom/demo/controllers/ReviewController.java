@@ -1,7 +1,7 @@
 package com.stoom.demo.controllers;
 
-import com.stoom.demo.entities.Review;
 import com.stoom.demo.requests.ReviewRequest;
+import com.stoom.demo.responses.ReviewResponse;
 import com.stoom.demo.services.ReviewService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/{assessment}")
-    public ResponseEntity<List<Review>> getReviewsByAssessment(@Valid @PathVariable(name = "assessment") String reviewAssessment){
+    public ResponseEntity<List<ReviewResponse>> getReviewsByAssessment(@Valid @PathVariable(name = "assessment") String reviewAssessment){
         return reviewService.getReviewByAssessment(reviewAssessment);
     }
 

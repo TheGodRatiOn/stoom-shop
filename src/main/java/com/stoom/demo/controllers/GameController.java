@@ -2,7 +2,7 @@ package com.stoom.demo.controllers;
 
 
 import com.stoom.demo.requests.GameRequest;
-import com.stoom.demo.entities.Game;
+import com.stoom.demo.responses.GameResponse;
 import com.stoom.demo.services.GameService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping("/{title}")
-    public ResponseEntity<List<Game>> getGameByTitle(@Valid @PathVariable(name = "title") String gameTitle){
+    public ResponseEntity<List<GameResponse>> getGameByTitle(@Valid @PathVariable(name = "title") String gameTitle){
         return gameService.getGameByTitle(gameTitle);
     }
 

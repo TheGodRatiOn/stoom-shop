@@ -6,11 +6,13 @@ import com.stoom.demo.repositories.GameRepository;
 import com.stoom.demo.repositories.ReviewRepository;
 import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.requests.ReviewRequest;
+import com.stoom.demo.responses.ReviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,9 +23,15 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
 
-    public ResponseEntity<List<Review>> getReviewByAssessment(String reviewAssessment){
+    public ResponseEntity<List<ReviewResponse>> getReviewByAssessment(String reviewAssessment){
         if (!reviewRepository.findAllByReviewAssessment(Float.parseFloat(reviewAssessment)).isEmpty()){
-            return new ResponseEntity<>(reviewRepository.findAllByReviewAssessment(Float.parseFloat(reviewAssessment)), HttpStatus.ACCEPTED);
+            List<Review> reviews = reviewRepository.findAllByReviewAssessment(Float.parseFloat(reviewAssessment));
+
+            List<ReviewResponse> reviewResponses = new ArrayList<>();
+            for (Review review : reviews) {
+                reviewResponses.add(new ReviewResponse(review));
+            }
+            return new ResponseEntity<>(reviewResponses, HttpStatus.ACCEPTED);
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
