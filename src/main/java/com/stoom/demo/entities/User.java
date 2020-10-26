@@ -1,13 +1,16 @@
 package com.stoom.demo.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Table(name = "user")
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class User {
     @Id
     @Column(name = "primary_key", nullable = false)
@@ -16,10 +19,10 @@ public class User {
     @OneToMany(mappedBy = "reviewUser")
     private List<Review> userReviews;
 
-    @Column(name = "column2")
-    private int userCol2;
+    @Column(name = "nickname", nullable = false)
+    private String userName;
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private String userRole;
 
     @OneToMany(mappedBy = "messageUser")

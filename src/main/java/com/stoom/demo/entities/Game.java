@@ -1,12 +1,15 @@
 package com.stoom.demo.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "game")
 public class Game {
     @Id

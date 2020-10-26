@@ -1,12 +1,15 @@
 package com.stoom.demo.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Table(name = "review")
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class Review {
     @Id
     @Column(name = "primary_key", nullable = false)
