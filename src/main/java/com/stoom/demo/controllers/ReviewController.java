@@ -27,7 +27,7 @@ public class ReviewController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<HttpStatus> createUser(@Valid @RequestBody ReviewRequest reviewRequest){
+    public ResponseEntity<HttpStatus> createReview(@Valid @RequestBody ReviewRequest reviewRequest){
         return reviewService.createReview(reviewRequest);
     }
 }
