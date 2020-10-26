@@ -29,4 +29,9 @@ public class GameController {
     public ResponseEntity<HttpStatus> createGame(@Valid @RequestBody GameRequest gameRequest){
         return gameService.createGameByRequest(gameRequest);
     }
+
+    @PutMapping("/")
+    public ResponseEntity<HttpStatus> startTitleSale(@Valid @RequestBody GameRequest gameRequest){
+        return gameService.startTitleSale(gameRequest);
+    }
 }
