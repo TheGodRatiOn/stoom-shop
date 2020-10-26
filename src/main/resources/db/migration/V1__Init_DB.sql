@@ -50,7 +50,7 @@ TABLESPACE pg_default;
 ALTER TABLE public.review
     OWNER to postgres;
 
-CREATE TABLE public."user"
+CREATE TABLE public.user
 (
     id character(36) COLLATE pg_catalog."default" NOT NULL,
     name character(20) COLLATE pg_catalog."default",
@@ -61,7 +61,7 @@ CREATE TABLE public."user"
 
 TABLESPACE pg_default;
 
-ALTER TABLE public."user"
+ALTER TABLE public.user
     OWNER to postgres;
 
 ALTER TABLE public.game
@@ -73,14 +73,14 @@ ALTER TABLE public.game
 
 ALTER TABLE public.message
     ADD CONSTRAINT m_u_r FOREIGN KEY (user_reciever_fk)
-        REFERENCES public."user" (id) MATCH SIMPLE
+        REFERENCES public.user (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID;
 
    ALTER TABLE public.message
     ADD CONSTRAINT m_u_s FOREIGN KEY (user_sender_fk)
-        REFERENCES public."user" (id) MATCH SIMPLE
+        REFERENCES public.user (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID;
@@ -94,12 +94,12 @@ ALTER TABLE public.review
 
 ALTER TABLE public.review
     ADD CONSTRAINT r_u FOREIGN KEY (user_fk)
-        REFERENCES public."user" (id) MATCH SIMPLE
+        REFERENCES public.user (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID;
 
-ALTER TABLE public."user"
+ALTER TABLE public.user
     ADD CONSTRAINT u_r FOREIGN KEY (review_fk)
         REFERENCES public.review (id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -116,7 +116,7 @@ CREATE TABLE public.game_user
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT g_u_u FOREIGN KEY (user_fk)
-        REFERENCES public."user" (id) MATCH SIMPLE
+        REFERENCES public.user (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
