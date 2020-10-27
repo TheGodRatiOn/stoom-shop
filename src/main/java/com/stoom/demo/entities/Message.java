@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table(name = "message")
+@Table(name = "messages")
 @Entity
 @NoArgsConstructor
 @Getter

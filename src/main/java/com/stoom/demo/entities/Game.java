@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "game")
+@Table(name = "games")
 public class Game {
     @Id
     @Column(name = "id", nullable = false)

@@ -1,45 +1,44 @@
-CREATE TABLE message
+CREATE TABLE users
+(
+id VARCHAR (36) PRIMARY KEY,
+name VARCHAR (128),
+role VARCHAR (32),
+);
+
+CREATE TABLE messages
 (
 id VARCHAR (36) PRIMARY KEY,
 text_m VARCHAR (1024),
 time_date TIMESTAMP,
 user_reciever_fk VARCHAR (36),
 user_sender_fk VARCHAR (36),
-FOREIGN KEY (user_sender_fk) REFERENCES user (id)
+FOREIGN KEY (user_sender_fk) REFERENCES users (id)
 );
 
-CREATE TABLE user
-(
-id VARCHAR (36) PRIMARY KEY,
-name VARCHAR (128),
-role VARCHAR (32),
-FOREIGN KEY (id) REFERENCES review (user_fk)
-);
-
-CREATE TABLE game_user
+CREATE TABLE game_users
 (
 game_fk VARCHAR (36) PRIMARY KEY,
 user_fk VARCHAR (36),
-FOREIGN KEY (game_fk) REFERENCES game (id),
-FOREIGN KEY (user_fk) REFERENCES user (id)
+FOREIGN KEY (game_fk) REFERENCES games (id),
+FOREIGN KEY (user_fk) REFERENCES users (id)
 );
 
-CREATE TABLE game
+CREATE TABLE games
 (
 id VARCHAR (36) PRIMARY KEY,
 name VARCHAR (128),
 url VARCHAR (256),
 price INT,
-FOREIGN KEY (id) REFERENCES review (game_fk)
+FOREIGN KEY (id) REFERENCES reviews (game_fk)
 );
 
-CREATE TABLE review
+CREATE TABLE reviews
 (
 id VARCHAR (36) PRIMARY KEY,
 text_review VARCHAR (1024),
 assessment REAL,
 user_fk VARCHAR (36),
 game_fk VARCHAR (36),
-FOREIGN KEY (user_fk) REFERENCES user (id),
-FOREIGN KEY (game_fk) REFERENCES game (id)
+FOREIGN KEY (user_fk) REFERENCES users (id),
+FOREIGN KEY (game_fk) REFERENCES games (id)
 );

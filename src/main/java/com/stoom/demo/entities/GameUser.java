@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "game_user")
+@Table(name = "game_users")
 @NoArgsConstructor
 @Getter
 @Setter
