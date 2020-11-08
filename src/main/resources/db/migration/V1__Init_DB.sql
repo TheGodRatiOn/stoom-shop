@@ -1,6 +1,7 @@
 CREATE TABLE users
 (
 id VARCHAR (36) PRIMARY KEY,
+password VARCHAR (32),
 name VARCHAR (128),
 role VARCHAR (32),
 );

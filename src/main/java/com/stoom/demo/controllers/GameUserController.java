@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/game_user")
+@RequestMapping("/stoom/game_user")
 @Validated
 @Api(value = "GameUserController")
 public class GameUserController {

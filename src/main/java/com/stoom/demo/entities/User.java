@@ -1,5 +1,6 @@
 package com.stoom.demo.entities;
 
+import com.stoom.demo.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,9 @@ public class User {
 
     @Column(name = "name", nullable = false)
     private String userName;
+
+    @Column(name = "password", nullable = false)
+    private String userPassword;
 
     @Column(name = "role", nullable = false)
     private String userRole;

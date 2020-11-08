@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/stoom/user")
 @Validated
 @Api(value = "UserController")
 public class UserController {

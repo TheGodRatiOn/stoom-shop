@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/game")
+@RequestMapping("/stoom/game")
 @Validated
 @Api(value = "GameController")
 public class GameController {

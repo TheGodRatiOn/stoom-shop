@@ -18,8 +18,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class MessageService {
-    private MessageRepository messageRepository;
-    private UserRepository userRepository;
+    private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
     public ResponseEntity<HttpStatus> createMessage(MessageRequest messageRequest) {
         if (userRepository.existsById(messageRequest.getMessageSenderUserID()) && userRepository.existsById(messageRequest.getMessageRecieverUserID())) {

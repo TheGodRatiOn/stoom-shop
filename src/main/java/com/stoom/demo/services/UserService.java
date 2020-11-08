@@ -1,5 +1,6 @@
 package com.stoom.demo.services;
 
+import com.stoom.demo.enums.Role;
 import com.stoom.demo.requests.UserRequest;
 import com.stoom.demo.entities.User;
 import com.stoom.demo.repositories.UserRepository;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public ResponseEntity<List<UserResponse>> getUsersByUserName(String userName){
         if (!userRepository.findAllByUserNameContaining(userName).isEmpty()){
@@ -33,8 +34,8 @@ public class UserService {
     }
 
     public ResponseEntity<HttpStatus> createUser(UserRequest userRequest){
-        if (userRequest.getUserReqRole().equals("USER") || userRequest.getUserReqRole().equals("PUBLISHER") || userRequest.getUserReqRole().equals("EMPLOYEE")){
-            User user = new User(UUID.randomUUID().toString(), null, userRequest.getUserReqName(), userRequest.getUserReqRole(), null);
+        if (userRequest.getUserReqRole().equals("ROLE_USER") || userRequest.getUserReqRole().equals("ROLE_PUBLISHER") || userRequest.getUserReqRole().equals("ROLE_CUSTOMER")){
+            User user = new User(UUID.randomUUID().toString(), null, userRequest.getUserReqName(), userRequest.getUserPassword(), userRequest.getUserReqRole(), null);
             userRepository.save(user);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }else {

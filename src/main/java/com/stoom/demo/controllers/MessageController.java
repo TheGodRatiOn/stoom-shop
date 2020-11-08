@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/message")
+@RequestMapping("/stoom/message")
 @Validated
 @Api(value = "MessageController")
 public class MessageController {
@@ -27,7 +27,7 @@ public class MessageController {
     }
 
     @GetMapping("/{userID}/{role}")
-    public ResponseEntity<List<MessageResponse>> getAllEmployeeMessages(@Valid @PathVariable(name = "userID") String userID,
+    public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @PathVariable(name = "userID") String userID,
                                                                         @Valid @PathVariable(name = "roleID") String role){
         return messageService.getAllUserMessages(userID, role);
     }

@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/review")
+@RequestMapping("/stoom/review")
 @Validated
 @Api(value = "ReviewController")
 public class ReviewController {

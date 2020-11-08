@@ -8,5 +8,7 @@ public class UserRequest {
     @JsonProperty
     private String userReqName;
     @JsonProperty
+    private String userPassword;
+    @JsonProperty
     private String userReqRole;
 }

@@ -18,9 +18,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GameUserService {
-    private GameRepository gameRepository;
-    private UserRepository userRepository;
-    private GameUserRepository gameUserRepository;
+    private final GameRepository gameRepository;
+    private final UserRepository userRepository;
+    private final GameUserRepository gameUserRepository;
 
     public ResponseEntity<HttpStatus> createGameUser(GameUserRequest gameUserRequest){
         if ((userRepository.findById(gameUserRequest.getReviewGameID()).isPresent() && gameRepository.findById(gameUserRequest.getReviewGameID()).isPresent())){
