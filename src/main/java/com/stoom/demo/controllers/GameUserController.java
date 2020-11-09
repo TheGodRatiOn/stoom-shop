@@ -28,9 +28,9 @@ public class GameUserController {
         return gameUserService.createGameUser(gameUserRequest);
     }
 
-    @GetMapping("/{userID}")
+    @GetMapping("/userID")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<GameResponse>> getUserGames(@Valid @PathVariable(name = "userID") String userID){
+    public ResponseEntity<List<GameResponse>> getUserGames(@Valid @RequestBody String userID){
         return gameUserService.getUserGames(userID);
     }
 }

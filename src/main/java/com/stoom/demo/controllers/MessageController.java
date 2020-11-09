@@ -1,6 +1,7 @@
 package com.stoom.demo.controllers;
 
 import com.stoom.demo.requests.MessageRequest;
+import com.stoom.demo.requests.UserRequest;
 import com.stoom.demo.responses.MessageResponse;
 import com.stoom.demo.services.MessageService;
 import io.swagger.annotations.Api;
@@ -28,10 +29,9 @@ public class MessageController {
         return messageService.createMessage(messageRequest);
     }
 
-    @GetMapping("/{userID}/{role}")
+    @GetMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @PathVariable(name = "userID") String userID,
-                                                                        @Valid @PathVariable(name = "roleID") String role){
-        return messageService.getAllUserMessages(userID, role);
+    public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @RequestBody UserRequest userRequest){
+        return messageService.getAllUserMessages(userRequest.getUserReqName(), userRequest.getUserReqRole());
     }
 }

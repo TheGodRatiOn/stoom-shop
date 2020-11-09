@@ -5,7 +5,6 @@ import com.stoom.demo.responses.UserResponse;
 import com.stoom.demo.services.UserService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -23,9 +22,9 @@ import java.util.List;
 public class UserController {
     private UserService userService;
 
-    @GetMapping("/{userName}")
+    @GetMapping("/userName")
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')or hasRole('ROLE_EMPLOYEE')")
-    public ResponseEntity<List<UserResponse>> getUsersByUserName(@Valid @PathVariable(name = "userName") String userName){
+    public ResponseEntity<List<UserResponse>> getUsersByUserName(@Valid @RequestBody String userName){
         return userService.getUsersByUserName(userName);
     }
 
