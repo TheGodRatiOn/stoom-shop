@@ -30,8 +30,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String[] WHITE_LIST = {
-            "/user/auth",
-            "/user/register",
+            "/user/registerUser",
+            "/user/createUser",
             "/configuration/**",
             "/swagger-resources/**",
             "/swagger-ui.html",

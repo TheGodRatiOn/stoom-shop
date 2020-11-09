@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,11 +23,13 @@ public class MessageController {
     private MessageService messageService;
 
     @PostMapping("/")
+    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE')")
     public ResponseEntity<HttpStatus> createMessage(@Valid @RequestBody MessageRequest messageRequest){
         return messageService.createMessage(messageRequest);
     }
 
     @GetMapping("/{userID}/{role}")
+    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @PathVariable(name = "userID") String userID,
                                                                         @Valid @PathVariable(name = "roleID") String role){
         return messageService.getAllUserMessages(userID, role);

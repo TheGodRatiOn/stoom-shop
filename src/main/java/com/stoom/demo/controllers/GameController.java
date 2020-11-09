@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,17 +23,20 @@ import java.util.List;
 public class GameController {
     private final GameService gameService;
 
-    @GetMapping("/{title}")
-    public ResponseEntity<List<GameResponse>> getGameByTitle(@Valid @PathVariable(name = "title") String gameTitle){
+    @GetMapping("/title")
+    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<GameResponse>> getGameByTitle(@Valid @RequestBody String gameTitle){
         return gameService.getGameByTitle(gameTitle);
     }
 
     @PostMapping("/")
+    @PreAuthorize(value = "hasRole('ROLE_PUBLISHER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<HttpStatus> createGame(@Valid @RequestBody GameRequest gameRequest){
         return gameService.createGameByRequest(gameRequest);
     }
 
     @PutMapping("/")
+    @PreAuthorize(value = "hasRole('ROLE_PUBLISHER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<HttpStatus> startTitleSale(@Valid @RequestBody GameRequest gameRequest){
         return gameService.startTitleSale(gameRequest);
     }
