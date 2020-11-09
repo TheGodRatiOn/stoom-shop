@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String[] WHITE_LIST = {
             "/stoom/user/registerUser",
             "/stoom/user/authUser",
+            "/stoom/user/refreshToken",
             "/configuration/**",
             "/swagger-resources/**",
             "/swagger-ui.html",
