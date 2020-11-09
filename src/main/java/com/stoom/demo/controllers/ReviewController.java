@@ -24,7 +24,7 @@ public class ReviewController {
 
     @GetMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_USER')")
-    public ResponseEntity<List<ReviewResponse>> getReviewsByAssessment(@Valid @RequestBody String reviewAssessment){
+    public ResponseEntity<List<ReviewResponse>> getReviewsByAssessment(@Valid @RequestParam String reviewAssessment){
         return reviewService.getReviewByAssessment(reviewAssessment);
     }
 

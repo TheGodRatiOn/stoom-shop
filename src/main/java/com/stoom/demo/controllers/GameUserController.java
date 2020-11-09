@@ -20,7 +20,7 @@ import java.util.List;
 @Validated
 @Api(value = "GameUserController")
 public class GameUserController {
-    private GameUserService gameUserService;
+    private final GameUserService gameUserService;
 
     @PostMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
@@ -28,9 +28,9 @@ public class GameUserController {
         return gameUserService.createGameUser(gameUserRequest);
     }
 
-    @GetMapping("/userID")
+    @GetMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<GameResponse>> getUserGames(@Valid @RequestBody String userID){
+    public ResponseEntity<List<GameResponse>> getUserGames(@Valid @RequestParam String userID){
         return gameUserService.getUserGames(userID);
     }
 }

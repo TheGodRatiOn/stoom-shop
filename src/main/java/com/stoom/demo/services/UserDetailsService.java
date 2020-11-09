@@ -1,6 +1,7 @@
 package com.stoom.demo.services;
 
 import com.stoom.demo.entities.User;
+import com.stoom.demo.enums.Role;
 import com.stoom.demo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

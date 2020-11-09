@@ -1,9 +1,12 @@
 package com.stoom.demo.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRequest {
     @JsonProperty
     private String userReqName;

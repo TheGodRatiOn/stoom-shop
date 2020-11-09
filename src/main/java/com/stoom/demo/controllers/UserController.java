@@ -2,6 +2,7 @@ package com.stoom.demo.controllers;
 
 import com.stoom.demo.requests.UserRequest;
 import com.stoom.demo.responses.UserResponse;
+import com.stoom.demo.security.exception.TokenException;
 import com.stoom.demo.services.UserService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +16,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/stoom/user")
 @Validated
 @Api(value = "UserController")
+@RequiredArgsConstructor
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/userName")
+    @GetMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')or hasRole('ROLE_EMPLOYEE')")
-    public ResponseEntity<List<UserResponse>> getUsersByUserName(@Valid @RequestBody String userName){
+    public ResponseEntity<List<UserResponse>> getUsersByUserName(@Valid @RequestParam String userName){
         return userService.getUsersByUserName(userName);
     }
 

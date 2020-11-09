@@ -22,9 +22,9 @@ import java.util.List;
 public class GameController {
     private final GameService gameService;
 
-    @GetMapping("/title")
+    @GetMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<GameResponse>> getGameByTitle(@Valid @RequestBody String gameTitle){
+    public ResponseEntity<List<GameResponse>> getGameByTitle(@Valid @RequestParam String gameTitle){
         return gameService.getGameByTitle(gameTitle);
     }
 

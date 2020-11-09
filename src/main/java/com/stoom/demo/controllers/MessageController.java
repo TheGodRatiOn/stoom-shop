@@ -21,7 +21,7 @@ import java.util.List;
 @Validated
 @Api(value = "MessageController")
 public class MessageController {
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @PostMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE')")
