@@ -1,6 +1,5 @@
 package com.stoom.demo.entities;
 
-import com.stoom.demo.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;

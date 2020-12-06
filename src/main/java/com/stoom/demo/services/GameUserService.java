@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class GameUserService {
 
     public ResponseEntity<HttpStatus> createGameUser(GameUserRequest gameUserRequest){
         if ((userRepository.findById(gameUserRequest.getReviewGameID()).isPresent() && gameRepository.findById(gameUserRequest.getReviewGameID()).isPresent())){
-            GameUser gameUser = new GameUser(gameUserRequest.getReviewGameID(), gameUserRequest.getReviewUserID());
+            GameUser gameUser = new GameUser(UUID.randomUUID().toString(), gameUserRequest.getReviewGameID(), gameUserRequest.getReviewUserID());
             gameUserRepository.save(gameUser);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {

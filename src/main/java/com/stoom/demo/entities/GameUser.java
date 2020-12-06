@@ -15,9 +15,12 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class GameUser {
     @Id
+    @Column(name = "game_user_pk", nullable = false)
+    private String guPkID;
+
     @Column(name = "game_fk", nullable = false)
     private String guGameID;
 
-    @Column(name = "user_fk")
+    @Column(name = "user_fk", nullable = false)
     private String guUserID;
 }
