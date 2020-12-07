@@ -3,7 +3,7 @@ CREATE TABLE users
 id VARCHAR (36) PRIMARY KEY,
 password VARCHAR (64),
 name VARCHAR (128),
-role VARCHAR (32),
+role VARCHAR (32)
 );
 
 CREATE TABLE messages
@@ -16,6 +16,14 @@ time_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (user_sender_fk) REFERENCES users (id)
 );
 
+CREATE TABLE games
+(
+id VARCHAR (36) PRIMARY KEY,
+price INT,
+name VARCHAR (128),
+url VARCHAR (256)
+);
+
 CREATE TABLE game_users
 (
 game_user_pk VARCHAR (36) PRIMARY KEY,
@@ -25,20 +33,11 @@ FOREIGN KEY (game_fk) REFERENCES games (id),
 FOREIGN KEY (user_fk) REFERENCES users (id)
 );
 
-CREATE TABLE games
-(
-id VARCHAR (36) PRIMARY KEY,
-name VARCHAR (128),
-url VARCHAR (256),
-price INT,
-FOREIGN KEY (id) REFERENCES reviews (game_fk)
-);
-
 CREATE TABLE reviews
 (
 id VARCHAR (36) PRIMARY KEY,
 text_review VARCHAR (1024),
-assessment REAL,
+asessment REAL,
 user_fk VARCHAR (36),
 game_fk VARCHAR (36),
 FOREIGN KEY (user_fk) REFERENCES users (id),

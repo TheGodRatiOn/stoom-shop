@@ -34,7 +34,7 @@ public class GameController {
         return gameService.createGameByRequest(gameRequest);
     }
 
-    @PostMapping("/")
+    @PutMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_PUBLISHER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<HttpStatus> startTitleSale(@Valid @RequestBody GameRequest gameRequest){
         return gameService.startTitleSale(gameRequest);

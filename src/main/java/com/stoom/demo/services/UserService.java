@@ -66,7 +66,7 @@ public class UserService {
         if (userRepository.findByUserName(userRequest.getUserReqName()) == null){
              httpServletResponse.setStatus(400);
         } else {
-            if (userRepository.findByUserName(userRequest.getUserReqName()).getUserPassword().equals(passwordEncoder.encode(userRequest.getUserPassword()))){
+            if (passwordEncoder.matches(userRequest.getUserPassword(), userRepository.findByUserName(userRequest.getUserReqName()).getUserPassword())){
                 getAuthTokens(userRequest, httpServletResponse);
                 httpServletResponse.setStatus(201);
             }else {
