@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,6 +63,20 @@ public class GameService {
             }
         }else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<List<GameResponse>> getAllGames(){
+        List<GameResponse> gameResponses = new ArrayList<>();
+
+        for (Game game: gameRepository.findAll()) {
+            gameResponses.add(new GameResponse(game));
+        }
+
+        if (gameResponses.isEmpty()){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(gameResponses, HttpStatus.ACCEPTED);
         }
     }
 }
