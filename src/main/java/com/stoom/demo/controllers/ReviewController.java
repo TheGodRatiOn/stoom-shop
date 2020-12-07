@@ -23,7 +23,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/")
-    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_USER')")
+    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_PUBLISHER')")
     public ResponseEntity<List<ReviewResponse>> getReviewsByAssessment(@Valid @RequestParam String reviewAssessment){
         return reviewService.getReviewByAssessment(reviewAssessment);
     }

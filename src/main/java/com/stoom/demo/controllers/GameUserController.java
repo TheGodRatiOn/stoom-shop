@@ -23,7 +23,7 @@ public class GameUserController {
     private final GameUserService gameUserService;
 
     @PostMapping("/")
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN') or hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<HttpStatus> createGameUser(@Valid @RequestBody GameUserRequest gameUserRequest){
         return gameUserService.createGameUser(gameUserRequest);
     }

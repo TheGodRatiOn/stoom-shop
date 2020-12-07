@@ -25,7 +25,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE')")
     public ResponseEntity<List<UserResponse>> getUsersByUserName(@Valid @RequestParam String userName){
         return userService.getUsersByUserName(userName);
     }
