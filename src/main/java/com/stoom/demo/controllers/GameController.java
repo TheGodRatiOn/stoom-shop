@@ -1,6 +1,5 @@
 package com.stoom.demo.controllers;
 
-import com.stoom.demo.entities.Game;
 import com.stoom.demo.requests.GameRequest;
 import com.stoom.demo.responses.GameResponse;
 import com.stoom.demo.services.GameService;
@@ -42,7 +41,7 @@ public class GameController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_PUBLISHER') or hasRole('ROLE_EMPLOYEE')")
+    //@PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_PUBLISHER') or hasRole('ROLE_EMPLOYEE')")
     public ResponseEntity<List<GameResponse>> getAllGames(){
         return gameService.getAllGames();
     }

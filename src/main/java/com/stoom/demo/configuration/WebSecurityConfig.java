@@ -30,6 +30,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String[] WHITE_LIST = {
+            "/stoom/game/all",
             "/stoom/user/registerUser",
             "/stoom/user/authUser",
             "/stoom/user/refreshToken",

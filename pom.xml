@@ -19,7 +19,6 @@
         <java.version>11</java.version>
         <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-
     </properties>
 
     <dependencies>
