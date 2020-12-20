@@ -50,4 +50,10 @@ public class UserController {
         }
 
     }
+
+    @GetMapping("/getUserID")
+    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_PUBLISHER')")
+    public ResponseEntity<UserResponse> getUserID(@Valid @RequestParam String userName){
+        return userService.getUserID(userName);
+    }
 }

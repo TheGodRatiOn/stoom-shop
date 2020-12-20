@@ -112,4 +112,18 @@ public class UserService {
             e.printStackTrace();
         }
     }
+
+    public ResponseEntity<UserResponse> getUserID(String userName){
+        UserResponse userResponse = new UserResponse();
+        if (userRepository.findByUserName(userName) != null) {
+            User user = userRepository.findByUserName(userName);
+            userResponse.setUserResID(user.getUserID());
+            userResponse.setUserResName(user.getUserName());
+
+            return new ResponseEntity<>(userResponse, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
