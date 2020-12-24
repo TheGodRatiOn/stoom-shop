@@ -22,8 +22,8 @@ import java.util.List;
 public class GameController {
     private final GameService gameService;
 
-    @GetMapping("/")
-    @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/getGameByTitle")
+    //@PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<GameResponse>> getGameByTitle(@Valid @RequestParam String gameTitle){
         return gameService.getGameByTitle(gameTitle);
     }
@@ -44,5 +44,11 @@ public class GameController {
     //@PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_PUBLISHER') or hasRole('ROLE_EMPLOYEE')")
     public ResponseEntity<List<GameResponse>> getAllGames(){
         return gameService.getAllGames();
+    }
+
+    @GetMapping("/getGame")
+    //@PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_PUBLISHER') or hasRole('ROLE_EMPLOYEE')")
+    public ResponseEntity<GameResponse> getGame(@Valid @RequestParam String gameID){
+        return gameService.getGame(gameID);
     }
 }

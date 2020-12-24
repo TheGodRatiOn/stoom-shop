@@ -79,4 +79,16 @@ public class GameService {
             return new ResponseEntity<>(gameResponses, HttpStatus.ACCEPTED);
         }
     }
+
+    public ResponseEntity<GameResponse> getGame(String gameID){
+        UUID gameUUID = UUID.fromString(gameID);
+
+        if (gameRepository.findById(gameUUID.toString()).isPresent()){
+            GameResponse gameResponse = new GameResponse(gameRepository.findById(gameUUID.toString()).get());
+
+            return new ResponseEntity<>(gameResponse, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

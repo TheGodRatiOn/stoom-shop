@@ -31,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String[] WHITE_LIST = {
             "/stoom/game/all",
+            "/stoom/game/getGame",
+            "/stoom/game/getGameByTitle",
             "/stoom/user/registerUser",
             "/stoom/user/authUser",
             "/stoom/user/refreshToken",
