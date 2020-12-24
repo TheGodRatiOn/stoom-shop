@@ -56,6 +56,7 @@ public class UserService {
             User user = new User(UUID.randomUUID().toString(), null, userRequest.getUserReqName(), passwordEncoder.encode(userRequest.getUserPassword()), Role.ROLE_CUSTOMER.toString(), null);
             userRepository.save(user);
             getAuthTokens(userRequest, httpServletResponse);
+
             httpServletResponse.setStatus(202);
         }else {
             httpServletResponse.setStatus(406);
@@ -68,6 +69,9 @@ public class UserService {
         } else {
             if (passwordEncoder.matches(userRequest.getUserPassword(), userRepository.findByUserName(userRequest.getUserReqName()).getUserPassword())){
                 getAuthTokens(userRequest, httpServletResponse);
+
+                httpServletResponse.addHeader("user-role", userRepository.findByUserName(userRequest.getUserReqName()).getUserRole());
+
                 httpServletResponse.setStatus(201);
             }else {
                 httpServletResponse.setStatus(403);
