@@ -38,12 +38,12 @@ public class ReviewService {
     }
 
     public ResponseEntity<HttpStatus> createReview(ReviewRequest reviewRequest){
-        if ((userRepository.findById(reviewRequest.getReviewGameID()).isPresent() && gameRepository.findById(reviewRequest.getReviewGameID()).isPresent())){
+        if ((userRepository.findById(reviewRequest.getReviewUserID()).isPresent() && gameRepository.findById(reviewRequest.getReviewGameID()).isPresent())){
             if (!reviewRequest.getReviewText().equals("")){
                 Review review = new Review(UUID.randomUUID().toString(),
                     reviewRequest.getReviewText(),
                     reviewRequest.getReviewAssessment(),
-                    gameRepository.findById(reviewRequest.getReviewUserID()).get(),
+                    gameRepository.findById(reviewRequest.getReviewGameID()).get(),
                     userRepository.findById(reviewRequest.getReviewUserID()).get());
                 reviewRepository.save(review);
                 return new ResponseEntity<>(HttpStatus.CREATED);
