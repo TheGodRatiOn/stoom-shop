@@ -24,10 +24,17 @@ public class GameUserService {
     private final GameUserRepository gameUserRepository;
 
     public ResponseEntity<HttpStatus> createGameUser(GameUserRequest gameUserRequest){
-        if ((userRepository.findById(gameUserRequest.getReviewGameID()).isPresent() && gameRepository.findById(gameUserRequest.getReviewGameID()).isPresent())){
-            GameUser gameUser = new GameUser(UUID.randomUUID().toString(), gameUserRequest.getReviewGameID(), gameUserRequest.getReviewUserID());
-            gameUserRepository.save(gameUser);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        if ((userRepository.findById(gameUserRequest.getReviewUserID()).isPresent() && gameRepository.findById(gameUserRequest.getReviewGameID()).isPresent())){
+            List<GameUser> gameUsers = gameUserRepository.findAllByGuUserID(gameUserRequest.getReviewUserID());
+
+            if (gameUsers.stream().noneMatch(gameUser -> gameUser.getGuGameID().equals(gameUserRequest.getReviewGameID())))
+            {
+                GameUser gameUser = new GameUser(UUID.randomUUID().toString(), gameUserRequest.getReviewGameID(), gameUserRequest.getReviewUserID());
+                gameUserRepository.save(gameUser);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

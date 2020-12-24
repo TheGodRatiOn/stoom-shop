@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface GameUserRepository extends CrudRepository<GameUser, String>{
     List<GameUser> findAllByGuUserID(String userID);
-
 }
