@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,20 +47,17 @@ public class GameService {
     }
 
     public ResponseEntity<HttpStatus> startTitleSale(GameRequest gameRequest){
-        float multiplier = (1 - (gameRequest.getGameReqPrice()/100));
+        float multiplier = (1 - (gameRequest.getGameReqPrice()/100.0f));
         String userID = gameRequest.getGameReqURL();
 
         if ((!gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle()).isEmpty()) && (userRepository.findById(userID).isPresent())){
-            if (userRepository.findById(userID).get().getUserRole().equals("EMPLOYEE")){
                 List<Game> games = gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle());
-                games.stream().forEach(game -> game.setGamePrice(Math.round(game.getGamePrice() * multiplier)));
+                games.forEach(game -> game.setGamePrice(Math.round(game.getGamePrice() * multiplier)));
                 gameRepository.saveAll(games);
 
                 return new ResponseEntity<>(HttpStatus.ACCEPTED);
-            }else {
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
-        }else {
+        else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
