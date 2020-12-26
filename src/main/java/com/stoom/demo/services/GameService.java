@@ -1,6 +1,5 @@
 package com.stoom.demo.services;
 
-import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.requests.GameRequest;
 import com.stoom.demo.entities.Game;
 import com.stoom.demo.repositories.GameRepository;
@@ -19,11 +18,10 @@ import java.util.UUID;
 public class GameService {
 
     private final GameRepository gameRepository;
-    private final UserRepository userRepository;
 
     public ResponseEntity<List<GameResponse>> getGameByTitle(String gameTitle){
-        if (!gameRepository.findAllByGameTitleContaining(gameTitle).isEmpty()) {
-            List<Game> games = gameRepository.findAllByGameTitleContaining(gameTitle);
+        if (!gameRepository.findAllByGameTitleContains(gameTitle).isEmpty()) {
+            List<Game> games = gameRepository.findAllByGameTitleContains(gameTitle);
             List<GameResponse> gameResponses = new ArrayList<>();
 
             for (Game game : games) {
@@ -48,16 +46,15 @@ public class GameService {
 
     public ResponseEntity<HttpStatus> startTitleSale(GameRequest gameRequest){
         float multiplier = (1 - (gameRequest.getGameReqPrice()/100.0f));
-        // userID = gameRequest.getGameReqURL();
 
-        if (!gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle()).isEmpty()){
-                List<Game> games = gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle());
+        if (!gameRepository.findAllByGameTitleContains(gameRequest.getGameReqTitle()).isEmpty()){
+                List<Game> games = gameRepository.findAllByGameTitleContains(gameRequest.getGameReqTitle());
                 games.forEach(game -> game.setGamePrice(Math.round(game.getGamePrice() * multiplier)));
                 gameRepository.saveAll(games);
 
                 return new ResponseEntity<>(HttpStatus.ACCEPTED);
-            }
-        else {
+
+        } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

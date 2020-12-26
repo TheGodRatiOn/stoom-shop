@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GameRepository extends CrudRepository<Game, String> {
-    List<Game> findAllByGameTitleContaining(String gameTitle);
+    List<Game> findAllByGameTitleContains(String gameTitle);
 }

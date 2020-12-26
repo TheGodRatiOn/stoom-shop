@@ -24,7 +24,7 @@ public class GameUserService {
     private final GameUserRepository gameUserRepository;
 
     public ResponseEntity<HttpStatus> createGameUser(GameUserRequest gameUserRequest){
-        if ((userRepository.findById(gameUserRequest.getReviewUserID()).isPresent() && gameRepository.findById(gameUserRequest.getReviewGameID()).isPresent())){
+        if ((userRepository.existsById(gameUserRequest.getReviewUserID()) && gameRepository.existsById((gameUserRequest.getReviewGameID())))){
             List<GameUser> gameUsers = gameUserRepository.findAllByGuUserID(gameUserRequest.getReviewUserID());
 
             if (gameUsers.stream().noneMatch(gameUser -> gameUser.getGuGameID().equals(gameUserRequest.getReviewGameID())))
@@ -44,9 +44,10 @@ public class GameUserService {
         if (userRepository.existsById(userID) && !gameUserRepository.findAllByGuUserID(userID).isEmpty()) {
             List<GameUser> gameUsers = gameUserRepository.findAllByGuUserID(userID);
             List<Game> games = new ArrayList<>();
-            for (int i = 0; i < gameUsers.size(); i++) {
-                if (gameRepository.findById(gameUsers.get(i).getGuGameID()).isPresent()){
-                    games.add(gameRepository.findById(gameUsers.get(i).getGuGameID()).get());
+
+            for (GameUser gameUser : gameUsers) {
+                if (gameRepository.findById(gameUser.getGuGameID()).isPresent()) {
+                    games.add(gameRepository.findById(gameUser.getGuGameID()).get());
                 }
             }
 
