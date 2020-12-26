@@ -48,9 +48,9 @@ public class GameService {
 
     public ResponseEntity<HttpStatus> startTitleSale(GameRequest gameRequest){
         float multiplier = (1 - (gameRequest.getGameReqPrice()/100.0f));
-        String userID = gameRequest.getGameReqURL();
+        // userID = gameRequest.getGameReqURL();
 
-        if ((!gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle()).isEmpty()) && (userRepository.findById(userID).isPresent())){
+        if (!gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle()).isEmpty()){
                 List<Game> games = gameRepository.findAllByGameTitleContaining(gameRequest.getGameReqTitle());
                 games.forEach(game -> game.setGamePrice(Math.round(game.getGamePrice() * multiplier)));
                 gameRepository.saveAll(games);
