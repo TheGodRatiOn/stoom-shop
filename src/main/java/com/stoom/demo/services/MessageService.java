@@ -36,8 +36,8 @@ public class MessageService {
         }
     }
 
-    public ResponseEntity<List<MessageResponse>> getAllUserMessages(String userID, String role){
-        if (userRepository.existsById(userID) && userRepository.findById(userID).get().getUserRole().equals(role)){
+    public ResponseEntity<List<MessageResponse>> getAllUserMessages(String userID){
+        if (userRepository.existsById(userID)){
             List<Message> messages = messageRepository.findAllByMessageSenderUser(userRepository.findById(userID).get());
             messages.addAll(messageRepository.findAllByMessageReceiverUser(userID));
 

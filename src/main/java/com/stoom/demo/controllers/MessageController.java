@@ -1,7 +1,6 @@
 package com.stoom.demo.controllers;
 
 import com.stoom.demo.requests.MessageRequest;
-import com.stoom.demo.requests.UserRequest;
 import com.stoom.demo.responses.MessageResponse;
 import com.stoom.demo.services.MessageService;
 import io.swagger.annotations.Api;
@@ -31,7 +30,7 @@ public class MessageController {
 
     @GetMapping("/")
     @PreAuthorize(value = "hasRole('ROLE_CUSTOMER') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @RequestBody UserRequest userRequest){
-        return messageService.getAllUserMessages(userRequest.getUserReqName(), userRequest.getUserReqRole());
+    public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @RequestParam String userID){
+        return messageService.getAllUserMessages(userID);
     }
 }

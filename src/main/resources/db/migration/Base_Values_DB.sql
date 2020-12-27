@@ -17,7 +17,7 @@ INSERT INTO game_users(game_user_pk, game_fk, user_fk) VALUES ('f2f7a1d6-4fa9-49
 INSERT INTO game_users(game_user_pk, game_fk, user_fk) VALUES ('e88335a2-1625-45ea-9af7-6f68b63a9115', '2c8bd654-4034-4abf-b8d1-b0075886d7b7', '29fe5e85-799f-4097-8894-71d699d0009c');
 INSERT INTO game_users(game_user_pk, game_fk, user_fk) VALUES ('df1b73e5-b9ad-40cd-aeaa-4b155ad50260', '0851ed2b-7ab4-4882-9150-faba7dc19763', '793cf14b-a2c8-4fff-910d-1fbca4e09127');
 
-INSERT INTO messages(id, text_m, user_sender_fk, user_reciever_fk) VALUES ('1ffa0596-f545-4c92-875d-9f9114aa3318', 'LOL HAVE YOU SEEN THAT BS?!', '29fe5e85-799f-4097-8894-71d699d0009c', 'e2614806-b55d-4270-b03a-05a6f15141a8');
-INSERT INTO messages(id, text_m, user_sender_fk, user_reciever_fk) VALUES ('a464b2ba-46c5-41dd-aeb9-05196a389602', 'No idea how did you managed to', 'e2614806-b55d-4270-b03a-05a6f15141a8', '29fe5e85-799f-4097-8894-71d699d0009c');
+INSERT INTO messages(id, text_m, user_sender_fk, user_reciever_fk, time_date) VALUES ('1ffa0596-f545-4c92-875d-9f9114aa3318', 'LOL HAVE YOU SEEN THAT BS?!', '29fe5e85-799f-4097-8894-71d699d0009c', 'e2614806-b55d-4270-b03a-05a6f15141a8', CURRENT_TIMESTAMP);
+INSERT INTO messages(id, text_m, user_sender_fk, user_reciever_fk, time_date) VALUES ('a464b2ba-46c5-41dd-aeb9-05196a389602', 'No idea how did you managed to', 'e2614806-b55d-4270-b03a-05a6f15141a8', '29fe5e85-799f-4097-8894-71d699d0009c', CURRENT_TIMESTAMP);
 
 INSERT INTO reviews(id, text_review, asessment, game_fk, user_fk) VALUES ('c1b9d063-6049-4084-9378-2445ec8ff4f5', 'THE BEST GAME OF ALL TIME EXCEPT I HATE LOOTBOXES', 4.5, '7a4cfa58-c229-4ed8-85ca-7be700c02697', 'e2614806-b55d-4270-b03a-05a6f15141a8');
