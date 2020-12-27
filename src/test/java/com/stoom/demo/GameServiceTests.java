@@ -32,7 +32,7 @@ public class GameServiceTests {
     private GameRepository gameRepository;
 
     @Test
-    public void getGameByTitleTest(){
+    public void getGameByTitleCorrect(){
         when(gameRepository.findAllByGameTitleContains("Call Of Duty"))
                 .thenReturn(Stream.of(
                         new Game(UUID.randomUUID().toString(), "Call Of Duty Modern Warfare", null, 2999, "http://www.example.net/beef/battle.aspx"),
@@ -42,20 +42,30 @@ public class GameServiceTests {
                         .collect(Collectors.toList()));
         assertEquals(4, Objects.requireNonNull(gameService.getGameByTitle("Call Of Duty").getBody()).size());
         assertTrue(Objects.requireNonNull(gameService.getGameByTitle("Call Of Duty").getBody()).stream().allMatch(gameResponse -> gameResponse.getGameResTitle().contains("Call Of Duty")));
+        assertEquals(202, gameService.getGameByTitle("Call Of Duty").getStatusCodeValue());
     }
 
     @Test
-    public void getGameTest(){
+    public void getGameTestCorrect(){
         String id = UUID.randomUUID().toString();
         Game game = new Game(id, "The Witcher 3 Wild Hunt", null, 1199, "https://example.org/brick.htm#bottle");
         GameResponse gameResponse = new GameResponse(game);
         when(gameRepository.findById(id))
                 .thenReturn(java.util.Optional.of(new Game(id, "The Witcher 3 Wild Hunt", null, 1199, "https://example.org/brick.htm#bottle")));
         assertTrue(new ReflectionEquals(gameResponse).matches(gameService.getGame(id).getBody()));
+        assertEquals(200, gameService.getGame(id).getStatusCodeValue());
     }
 
     @Test
-    public void getAllGamesTest(){
+    public void getGameTestBR(){
+        String id = UUID.randomUUID().toString();
+        when(gameRepository.findById(id))
+                .thenReturn(java.util.Optional.empty());
+        assertEquals(400, gameService.getGame(id).getStatusCodeValue());
+    }
+
+    @Test
+    public void getAllGamesTestCorrect(){
         when(gameRepository.findAll())
                 .thenReturn(Stream.of(
                         new Game(UUID.randomUUID().toString(), "Call Of Duty Cold War", null, 3999, "http://bath.example.com/?believe=aftermath&blood=act"),
@@ -64,6 +74,7 @@ public class GameServiceTests {
                         new Game(UUID.randomUUID().toString(), "Need For Speed Underground 3", null, 3999, "https://www.example.net/badge/bed.php"))
                 .collect(Collectors.toList()));
         assertEquals(4, Objects.requireNonNull(gameService.getAllGames().getBody()).size());
+        assertEquals(202, gameService.getAllGames().getStatusCodeValue());
     }
 
     @Test

@@ -1,13 +1,11 @@
 package com.stoom.demo.services;
 
-import com.stoom.demo.configuration.AppProperties;
 import com.stoom.demo.enums.Role;
 import com.stoom.demo.requests.UserRequest;
 import com.stoom.demo.entities.User;
 import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.responses.UserResponse;
 import com.stoom.demo.security.exception.TokenException;
-import com.stoom.demo.security.exception.UserNotFoundException;
 import com.stoom.demo.security.token.AccessTokenProvider;
 import com.stoom.demo.security.token.RefreshTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +36,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
     public ResponseEntity<List<UserResponse>> getUsersByUserName(String userName){
-        if (!userRepository.findAllByUserNameContaining(userName).isEmpty()){
+        if (userRepository.findAllByUserNameContaining(userName) != null){
             List<User> users = userRepository.findAllByUserNameContaining(userName);
             List<UserResponse> userResponses = new ArrayList<>();
 
