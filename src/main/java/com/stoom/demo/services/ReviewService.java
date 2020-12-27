@@ -23,9 +23,9 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
 
-    public ResponseEntity<List<ReviewResponse>> getReviewByAssessment(String reviewAssessment){
-        if (!reviewRepository.findAllByReviewAssessment(Float.parseFloat(reviewAssessment)).isEmpty()){
-            List<Review> reviews = reviewRepository.findAllByReviewAssessment(Float.parseFloat(reviewAssessment));
+    public ResponseEntity<List<ReviewResponse>> getGameReviewsByAssessment(ReviewRequest reviewRequest){
+        if (gameRepository.existsById(reviewRequest.getReviewGameID())){
+            List<Review> reviews = reviewRepository.findAllByReviewGameAndReviewAssessment(gameRepository.findById(reviewRequest.getReviewGameID()).get(), reviewRequest.getReviewAssessment());
 
             List<ReviewResponse> reviewResponses = new ArrayList<>();
             for (Review review : reviews) {
@@ -38,7 +38,7 @@ public class ReviewService {
     }
 
     public ResponseEntity<HttpStatus> createReview(ReviewRequest reviewRequest){
-        if ((userRepository.findById(reviewRequest.getReviewUserID()).isPresent() && gameRepository.findById(reviewRequest.getReviewGameID()).isPresent())){
+        if ((userRepository.existsById(reviewRequest.getReviewUserID()) && gameRepository.existsById(reviewRequest.getReviewGameID()))){
             if (!reviewRequest.getReviewText().equals("")){
                 Review review = new Review(UUID.randomUUID().toString(),
                     reviewRequest.getReviewText(),
