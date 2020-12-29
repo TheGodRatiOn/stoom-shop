@@ -33,4 +33,10 @@ public class MessageController {
     public ResponseEntity<List<MessageResponse>> getAllUserMessages(@Valid @RequestParam String userID){
         return messageService.getAllUserMessages(userID);
     }
+
+    @PostMapping("/respond")
+    @PreAuthorize(value = "hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<HttpStatus> respondToCustomer(@Valid @RequestBody MessageRequest messageRequest){
+        return messageService.respondToCustomer(messageRequest);
+    }
 }

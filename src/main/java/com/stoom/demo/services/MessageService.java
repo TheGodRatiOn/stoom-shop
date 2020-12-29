@@ -1,6 +1,7 @@
 package com.stoom.demo.services;
 
 import com.stoom.demo.entities.Message;
+import com.stoom.demo.enums.Role;
 import com.stoom.demo.repositories.MessageRepository;
 import com.stoom.demo.repositories.UserRepository;
 import com.stoom.demo.requests.MessageRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -22,14 +24,40 @@ public class MessageService {
     private final UserRepository userRepository;
 
     public ResponseEntity<HttpStatus> createMessage(MessageRequest messageRequest) {
-        if (userRepository.existsById(messageRequest.getMessageSenderUserID()) && userRepository.existsById(messageRequest.getMessageRecieverUserID())) {
+        if (userRepository.existsById(messageRequest.getMessageSenderUserID())) {
             LocalDateTime localDateTime = LocalDateTime.now();
+            Random random = new Random();
+
+            int empListSize = userRepository.findByUserRole(Role.ROLE_EMPLOYEE.name()).size();
+
+            if (empListSize > 0) {
+                Message message = new Message(UUID.randomUUID().toString(),
+                        userRepository.findById(messageRequest.getMessageSenderUserID()).get(),
+                        userRepository.findByUserRole(Role.ROLE_EMPLOYEE.name()).get(random.nextInt(empListSize)).getUserID(),
+                        messageRequest.getMessageText(),
+                        localDateTime);
+                messageRepository.save(message);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    public ResponseEntity<HttpStatus> respondToCustomer(MessageRequest messageRequest){
+        if (userRepository.existsById(messageRequest.getMessageSenderUserID()) && userRepository.existsById(messageRequest.getMessageRecieverUserID())){
+            LocalDateTime localDateTime = LocalDateTime.now();
+
             Message message = new Message(UUID.randomUUID().toString(),
                     userRepository.findById(messageRequest.getMessageSenderUserID()).get(),
                     messageRequest.getMessageRecieverUserID(),
                     messageRequest.getMessageText(),
                     localDateTime);
             messageRepository.save(message);
+
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

@@ -47,7 +47,6 @@ public class MessageServiceTests {
         MessageRequest messageRequest = new MessageRequest();
         messageRequest.setMessageText("TestText");
         messageRequest.setMessageSenderUserID(userID1);
-        messageRequest.setMessageRecieverUserID(userID2);
 
         assertEquals(403, messageService.createMessage(messageRequest).getStatusCodeValue());
     }
@@ -63,7 +62,6 @@ public class MessageServiceTests {
         MessageRequest messageRequest = new MessageRequest();
         messageRequest.setMessageText("TestText");
         messageRequest.setMessageSenderUserID(userID1);
-        messageRequest.setMessageRecieverUserID(userID2);
 
         when(userRepository.findById(userID1)).thenReturn(Optional.of(new User(userID2,null, "", "", "ROLE_CUSTOMER", null)));
 
