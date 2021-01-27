@@ -17,7 +17,7 @@ public class MessageResponse {
 
     public MessageResponse(Message message){
         this.setMessageResID(message.getMessageID());
-        this.setMessageResSenderUser(message.getMessageSenderUser().getUserID());
+        this.setMessageResSenderUser(message.getMessageSenderUser().getUserName());
         this.setMessageResReceiverUser(message.getMessageReceiverUser());
         this.setMessageResDate(message.getMessageDate().toString());
         this.setMessageResText(message.getMessageText());

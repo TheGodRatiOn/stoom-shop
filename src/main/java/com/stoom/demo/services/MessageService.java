@@ -69,6 +69,9 @@ public class MessageService {
             List<Message> messages = messageRepository.findAllByMessageSenderUser(userRepository.findById(userID).get());
             messages.addAll(messageRepository.findAllByMessageReceiverUser(userID));
 
+            messages.forEach(message -> message.setMessageReceiverUser(
+                    userRepository.findUserByUserID(message.getMessageReceiverUser()).getUserName()));
+
             List<MessageResponse> messageResponses = new ArrayList<>();
             for (Message message : messages) {
                 messageResponses.add(new MessageResponse(message));
